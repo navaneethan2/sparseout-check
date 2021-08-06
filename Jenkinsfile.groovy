@@ -1,11 +1,18 @@
+#!/usr/bin/env groovy
 
+// see https://jenkins.io/doc/book/pipeline/syntax/#declarative-pipeline for syntax help
 
  pipeline {
 
   agent any
 
+     triggers {
+         // Set to run on Mon, Tue, Wed, Thurs, Fri
+         // cron 'H 17 * * 1-5'
+     }
+
      parameters {
-         choice(name: 'env', choices: ['ci'], description: 'To load the parameters in the jenkinfile')
+         choice(name: 'env', choices: ['ci','Dev'], description: 'To load the parameters in the jenkinfile')
         choice(name: 'App_Module_Name', choices: ['Module_1', 'Module_2', 'Module_3', 'Module_4', 'Module_5'], description: 'The number of parallel customer and payment regression packs to run.')
         booleanParam(name: 'Send_Email', description: 'Send Email',  defaultValue: true)
         text(name: 'Email_To',defaultValue: 'navaneethan.chinnasamy@rci.com',description: 'Email recipients')
