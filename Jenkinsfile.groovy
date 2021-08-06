@@ -8,7 +8,7 @@
 
      triggers {
          // Set to run on Mon, Tue, Wed, Thurs, Fri
-         // cron 'H 17 * * 1-5'
+          cron 'H 17 * * 1-5'
      }
 
      parameters {
