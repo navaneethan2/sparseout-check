@@ -72,13 +72,13 @@
 
         stage("sparse-checkout") {
            steps {
-              checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [[$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: "${App_Module_Name}"]]]], userRemoteConfigs: [[url: 'https://github.com/navaneethan2/sparseout-check.git']]])
+              checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [[$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: "UI/${App_Module_Name}"]]]], userRemoteConfigs: [[url: 'https://github.com/navaneethan2/sparseout-check.git']]])
            }
         }
 
          stage("package") {
             steps{
-               sh 'cd $App_Module_Name && \
+               sh 'cd UI/$App_Module_Name && \
                    echo $PWD && \
                    echo "mvn -f pom.xml sonar:sonar clean install"'
             }
