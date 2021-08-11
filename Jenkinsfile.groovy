@@ -45,7 +45,25 @@
                  }
              }
          }
+        /*stage("commits") {
+            steps {
+                script{
+                    def repoFile = "modules.json"
+                    def repos = repo.getAllRepos(repoFile)
 
+                    txtFileName = "repos-to-check"
+                    repo.createTextFileFromRepoList(txtFileName, repos)
+
+                    withCredentials([string(credentialsId: 'tfs_user', variable: 'API_Token')]) {
+                        sh """
+                            chmod +x svc-commits-last-night-by-branch.sh
+                            ./svc-commits-last-night-by-branch.sh ${API_Token} ${Branch_To_Check} ${txtFileName}.txt
+                        """
+                    }
+
+                }
+            }
+        }*/
         stage("App Name"){
            steps{
              sh 'echo $App_Module_Name'

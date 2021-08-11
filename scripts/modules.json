@@ -1,0 +1,23 @@
+{
+  "services": {
+    "modules": [
+      {
+        "name": "uiServices",
+        "modules": [
+          {
+            "name": "module_1",
+            "type": "maven",
+            "mavenVersion": "maven-3.*.*"
+          },
+          {
+            "name": "module_2",
+            "type": "maven",
+            "mavenVersion": "maven-3.*.*"
+          }
+        ]
+
+      }
+
+    ]
+  }
+}

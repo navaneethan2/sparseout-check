@@ -1,0 +1,34 @@
+import java.text.SimpleDateFormat
+import java.text.DateFormat
+import java.util.Date
+
+
+def timesTamps(long time) {
+
+    Date date = new Date(time * 1000L);
+    DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    String formatted = format.format(date);
+    print formatted;
+
+}
+
+
+pipeline {
+
+    agent any
+
+    stages {
+        stage("build time") {
+            steps{
+                script{
+                    def  edochtimestamp;
+                    edochtimestamp = sh (script: "curl -u jenkins:jenkins  http://18.237.186.200:8080/job/sparse-checkout/lastBuild/api/json?tree=timestamp | cut -d \",\" -f 2 | cut -d \":\" -f 2 | sed s/}//",returnStdout: true)
+                    echo "${edochtimestamp}"
+                    timesTamps(edochtimestamp);
+                }
+
+            }
+
+        }
+    }
+}
