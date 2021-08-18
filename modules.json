@@ -1,0 +1,33 @@
+{
+  "repositories": {
+    "sublists": [
+      {
+        "name": "UI",
+        "repos": [
+          {
+            "name": "AlertsUI",
+            "type": "maven",
+            "mavenVersion": "maven-3.*.*"
+          },
+          {
+            "name": "AllocationsUI",
+            "type": "maven",
+            "mavenVersion": "maven-3.*.*"
+          },
+          {
+            "name": "CustomerUI",
+            "type": "maven",
+            "mavenVersion": "maven-3.*.*"
+          },
+          {
+            "name": "SecurityUI",
+            "type": "maven",
+            "mavenVersion": "maven-3.*.*"
+          }
+        ]
+
+      }
+
+    ]
+  }
+}
