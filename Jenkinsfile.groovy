@@ -46,11 +46,22 @@
                  }
              }
          }
+
+         stage('LOAD') {
+             steps {
+                 script {
+
+                     repo_management = load 'scripts/repos.groovy'
+
+                 }
+             }
+         }
+         
          stage("commits") {
              steps {
-                 script{
+                 script {
                     def repoFile = "modules.json"
-                    def repos = modules.getAllRepos(repoFile)
+                    def repos = repo_management.getAllRepos(repoFile)
 
                     txtFileName = "repos-to-check"
                     repo.createTextFileFromRepoList(txtFileName, repos)
@@ -66,21 +77,22 @@
 
                 }
             }
-         
-        stage("App Name"){
-           steps{
-             sh 'echo $App_Module_Name'
-           }
-        }
 
-        stage("sparse-checkout") {
-           steps {
+
+         stage("App Name"){
+            steps{
+                sh 'echo $App_Module_Name'
+            }
+         }
+
+         stage("sparse-checkout") {
+            steps {
               checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [[$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: "UI/${App_Module_Name}"]]]], userRemoteConfigs: [[url: 'https://github.com/navaneethan2/sparseout-check.git']]])
-           }
-        }
+            }
+         }
 
          stage("package") {
-            steps{
+            steps {
                sh 'cd UI/$App_Module_Name && \
                    echo $PWD && \
                    echo "mvn -f pom.xml sonar:sonar clean install"'
