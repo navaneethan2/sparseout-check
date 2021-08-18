@@ -13,7 +13,8 @@
 
      parameters {
          choice(name: 'env', choices: ['ci', 'Dev'], description: 'To load the parameters in the jenkinfile.')
-         choice(name: 'App_Module_Name', choices: ['Module_1', 'Module_2', 'Module_3', 'Module_4',], description: 'The number of parallel customer and payment regression packs to run.')
+         booleanParam(name: 'Build_All', description: 'Build All', defaultValue: false)
+         string(name: 'Branch_To_Build', defaultValue: 'master', description: 'Build_All: Branch to build i.e. master/release-brYY.MM')
          booleanParam(name: 'Send_Email', description: 'Send Email',  defaultValue: true)
          text(name: 'Email_To',defaultValue: 'navaneethan.chinnasamy@gmail.com',description: 'Email recipients')
      }
@@ -45,25 +46,27 @@
                  }
              }
          }
-        /*stage("commits") {
-            steps {
-                script{
+         stage("commits") {
+             steps {
+                 script{
                     def repoFile = "modules.json"
-                    def repos = repo.getAllRepos(repoFile)
+                    def repos = modules.getAllRepos(repoFile)
 
                     txtFileName = "repos-to-check"
                     repo.createTextFileFromRepoList(txtFileName, repos)
 
-                    withCredentials([string(credentialsId: 'tfs_user', variable: 'API_Token')]) {
+                     sh "cat repos-to-check"
+
+                    /*withCredentials([string(credentialsId: 'tfs_user', variable: 'API_Token')]) {
                         sh """
                             chmod +x svc-commits-last-night-by-branch.sh
                             ./svc-commits-last-night-by-branch.sh ${API_Token} ${Branch_To_Check} ${txtFileName}.txt
-                        """
+                        """*/
                     }
 
                 }
             }
-        }*/
+         }
         stage("App Name"){
            steps{
              sh 'echo $App_Module_Name'
