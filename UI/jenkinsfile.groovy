@@ -2,9 +2,9 @@ pipeline{
       agent any
   
   stages {
-    stage(''check change) {
+    stage('check change') {
       when {
-         changeset "sparseout-check"
+         changeset "UI"
       }
       steps{
           sh "echo I will build now"
