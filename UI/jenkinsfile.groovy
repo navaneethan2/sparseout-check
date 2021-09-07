@@ -4,7 +4,7 @@ pipeline{
   stages {
     stage('check change') {
       when {
-         changeset "UI"
+         changeset "UI/Module_1"
       }
       steps{
           sh "echo I will build now"
